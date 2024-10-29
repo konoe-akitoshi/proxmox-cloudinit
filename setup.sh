@@ -15,15 +15,15 @@ UBUNTU_CODE_NAME=$2 # Ubuntu Code Name
 MEMORY_SIZE=$3 # Memory Size
 
 apt-get install cloud-init
-# download the latest Ubuntu Cloud Image
-wget https://cloud-images.ubuntu.com/${UBUNTU_CODE_NAME}/current/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img
+
+# Check if image exists
+if [ ! -f /root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img ]; then
+  echo "Image not found Downloading..."
+  # download the latest Ubuntu Cloud Image
+  wget https://cloud-images.ubuntu.com/${UBUNTU_CODE_NAME}/current/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img
+fi
 # create a new VM with VirtIO SCSI controller
-qm create ${VM_ID} \ 
---memory ${MEMORY_SIZE} \
---net0 virtio,bridge=vmbr0 \
---scsihw virtio-scsi-pci
---cores 2 \
---sockets 1
+qm create ${VM_ID} --memory ${MEMORY_SIZE} --net0 virtio,bridge=vmbr0 --scsihw virtio-scsi-pci --cores 2 --sockets 1
 # import the downloaded disk to the local-lvm storage, attaching it as a SCSI drive
 qm set ${VM_ID} --scsi0 local-lvm:0,import-from=/root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img
 # Add Cluod init CD-ROM
