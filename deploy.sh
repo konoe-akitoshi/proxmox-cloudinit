@@ -14,7 +14,7 @@ VLAN_TAG=$6
 if [ $# -ne 5 ]; then
   echo "Invalid number of arguments"
   echo "Usage: ./deploy.sh <VM_ID> <VM_NAME> <GITHUB_ACCOUNT> <PASSWORD> <NETWORK> <VLAN_TAG>"
-  echo "Example: ./deploy.sh 9000 noble csenet password123 ip=192.168.200.10/24,gw=192.168.200.1 200"
+  echo "Example: ./deploy.sh 9000 test csenet password123 ip=192.168.200.10/24,gw=192.168.200.1 200"
   exit 1
 fi
 

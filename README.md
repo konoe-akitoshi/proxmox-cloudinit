@@ -12,6 +12,12 @@ chmod +x setup.sh
 ./setup.sh 9000 noble 4096 # QEMU VM ID, Ubuntu CodeName, Memory Size
 ```
 2. VMをデプロイする
+```
+bash
+wget https://raw.githubusercontent.com/csenet/proxmox-cloudinit/refs/heads/main/deploy.sh
+chmod +x deploy.sh
+./deploy 9000 
+```
 
 
 ## UbuntuのバージョンとCodeNameの指定対応
