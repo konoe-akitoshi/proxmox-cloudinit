@@ -2,16 +2,16 @@
 # ./deploy.sh <VM_ID> <VM_NAME> <GITHUB_ACCOUNT> <PASSWORD> <NETWORK> <VLAN_TAG>
 
 TEMPLATE_VM_ID=$1
-VM_ID=$1
-VM_NAME=$2
-GITHUB_ACCOUNT=$3
-PASSWORD=$4
-NETWORK=$5
-VLAN_TAG=$6
+VM_ID=$2
+VM_NAME=$3
+GITHUB_ACCOUNT=$4
+PASSWORD=$5
+NETWORK=$6
+VLAN_TAG=$7
 
 
 # Check arguments and show usage
-if [ $# -lt 5 ]; then
+if [ $# -lt 6 ]; then
   echo "Invalid number of arguments"
   echo "Usage: ./deploy.sh <TEMPLATE_VM_ID> <VM_ID> <VM_NAME> <GITHUB_ACCOUNT> <PASSWORD> <NETWORK> (<VLAN_TAG>)"
   echo "Example: ./deploy.sh 9000 100 test csenet password123 ip=192.168.200.10/24,gw=192.168.200.1 200"
