@@ -43,3 +43,6 @@ qm set ${VM_ID} --ipconfig0 ${NETWORK}
 if [ -n "$VLAN_TAG" ]; then
   qm set ${VM_ID} --net0 virtio,bridge=vmbr0,tag=${VLAN_TAG}
 fi
+
+# Apply SSH keys
+apply_ssh_keys
