@@ -37,7 +37,7 @@ qm clone ${TEMPLATE_VM_ID} ${VM_ID} --name ${VM_NAME} --full true
 qm set ${VM_ID} --cipassword ${PASSWORD}
 
 # Set network
-qm set ${VM_ID} --ipconfig0 ip=${NETWORK}
+qm set ${VM_ID} --ipconfig0 ${NETWORK}
 
 # add vlan tag if VLAN_TAG is set
 if [ -n "$VLAN_TAG" ]; then
