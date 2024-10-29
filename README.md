@@ -9,7 +9,7 @@ Proxmox上でCloudinitに対応したUbuntuイメージをセットアップす�
 apt-get install wget
 wget https://raw.githubusercontent.com/csenet/proxmox-cloudinit/refs/heads/main/setup.sh
 chmod +x setup.sh
-./setup.sh 9000 noble 4096 # QEMU VM ID, Ubuntu CodeName, Memory Size
+./setup.sh 9000 noble 4096
 ```
 2. VMをデプロイする
 ```bash
