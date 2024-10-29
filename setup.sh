@@ -23,16 +23,18 @@ if [ ! -f /root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img ]; then
   wget https://cloud-images.ubuntu.com/${UBUNTU_CODE_NAME}/current/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img
 fi
 # create a new VM with VirtIO SCSI controller
-qm create ${VM_ID} --memory ${MEMORY_SIZE} --net0 virtio,bridge=vmbr0 --scsihw virtio-scsi-pci --cores 2 --sockets 1
+qm create ${VM_ID} --memory ${MEMORY_SIZE} --net0 virtio,bridge=vmbr0 --scsihw virtio-scsi-pci --cores 2 --sockets 1 --name ubuntu-${UBUNTU_CODE_NAME}-template
 # import the downloaded disk to the local-lvm storage, attaching it as a SCSI drive
-qm set ${VM_ID} --scsi0 local-lvm:0,import-from=/root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img
+qm set ${VM_ID} --scsi0 local-lvm:20,import-from=/root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img
 # Add Cluod init CD-ROM
 qm set ${VM_ID} --ide2 local-lvm:cloudinit
-# Change disk size (2GB -> 20GB)
-qm resize ${VM_ID} scsi0 +18G
+# Change disk size (3.5GB -> 20GB)
+# qm resize ${VM_ID} scsi0 +16.5G
 # Set boot order
 qm set ${VM_ID} --boot order=scsi0
 # add serial
 qm set ${VM_ID} --serial0 socket --vga serial0
 # convert to template
 qm template ${VM_ID}
+
+echo "VM Template is ready"

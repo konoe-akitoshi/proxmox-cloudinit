@@ -46,3 +46,5 @@ fi
 
 # Apply SSH keys
 apply_ssh_keys
+
+echo "VM is ready to start"

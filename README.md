@@ -15,7 +15,7 @@ chmod +x setup.sh
 ```bash
 wget https://raw.githubusercontent.com/csenet/proxmox-cloudinit/refs/heads/main/deploy.sh
 chmod +x deploy.sh
-./deploy.sh 9000 test csenet password123 ip=192.168.200.10/24,gw=192.168.200.1 200
+./deploy.sh 9000 100 test csenet password123 ip=192.168.200.10/24,gw=192.168.200.1 200
 ```
 
 
