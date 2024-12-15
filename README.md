@@ -11,13 +11,17 @@ wget https://raw.githubusercontent.com/csenet/proxmox-cloudinit/refs/heads/main/
 chmod +x setup.sh
 ./setup.sh 9000 noble 4096
 ```
+diskを指定する場合(デフォルトはlocal-lvm)
+```bash
+./setup.sh 9000 noble 4096 HDDPool
+```
+
 2. VMをデプロイする
 ```bash
 wget https://raw.githubusercontent.com/csenet/proxmox-cloudinit/refs/heads/main/deploy.sh
 chmod +x deploy.sh
 ./deploy.sh 9000 100 test csenet password123 ip=192.168.200.10/24,gw=192.168.200.1 200
 ```
-
 
 ## UbuntuのバージョンとCodeNameの指定対応
 
