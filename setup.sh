@@ -2,10 +2,10 @@
 # wget https://raw.githubusercontent.com/csenet/proxmox-cloudinit/refs/heads/main/setup-template.sh
 # ./setup.sh <VM_ID> <UBUNTU_CODE_NAME>
 
-# Check arguments
-if [ $# -ne 3 ]; then
+# Check arguments shoud be 3 or 4
+if [ "$#" -ne 3 ] && [ "$#" -ne 4 ]; then
   echo "Invalid number of arguments"
-  echo "Usage: ./setup.sh <VM_ID> <UBUNTU_CODE_NAME> <MEMORY_SIZE>"
+  echo "Usage: ./setup.sh <VM_ID> <UBUNTU_CODE_NAME> <MEMORY_SIZE> [<DISK_POOL>]"
   echo "Example: ./setup.sh 9000 noble 4096"
   exit 1
 fi
@@ -13,6 +13,10 @@ fi
 VM_ID=$1 # QEMU VM ID
 UBUNTU_CODE_NAME=$2 # Ubuntu Code Name
 MEMORY_SIZE=$3 # Memory Size
+DISK_POOL=$4 # Disk Pool optional
+if [ -z "$DISK_POOL" ]; then
+  DISK_POOL="local-lvm"
+fi
 
 apt-get install cloud-init
 
@@ -24,10 +28,10 @@ if [ ! -f /root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img ]; then
 fi
 # create a new VM with VirtIO SCSI controller
 qm create ${VM_ID} --memory ${MEMORY_SIZE} --net0 virtio,bridge=vmbr0 --scsihw virtio-scsi-pci --cores 2 --sockets 1 --name ubuntu-${UBUNTU_CODE_NAME}-template
-# import the downloaded disk to the local-lvm storage, attaching it as a SCSI drive
-qm set ${VM_ID} --scsi0 local-lvm:0,import-from=/root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img
+# import the downloaded disk to the DISK_POOL storage, attaching it as a SCSI drive
+qm set ${VM_ID} --scsi0 ${DISK_POOL}:0,import-from=/root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img
 # Add Cluod init CD-ROM
-qm set ${VM_ID} --ide2 local-lvm:cloudinit
+qm set ${VM_ID} --ide2 ${DISK_POOL}:cloudinit
 # Add disk size
 qm resize ${VM_ID} scsi0 +20G
 # Set boot order
