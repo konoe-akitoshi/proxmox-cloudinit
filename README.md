@@ -2,6 +2,11 @@
 
 Proxmox上でCloudinitに対応したUbuntuイメージをセットアップするためのスクリプト
 
+## 注意
+
+スクリプトに誤りがあり、`sudo apt-get install cloud-init`をホスト上で実行するようになっていました
+大変お手数ですが、それより前のバージョンを利用した方は、`sudo apt purge cloud-init`で削除をお願いします
+
 ## 使い方
 
 1. ProxmoxのNodeにSSHでログイン(VMではない)して、以下のコマンドを実行する
