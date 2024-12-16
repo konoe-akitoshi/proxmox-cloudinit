@@ -4,8 +4,10 @@ Proxmox上でCloudinitに対応したUbuntuイメージをセットアップす�
 
 ## 注意
 
-スクリプトに誤りがあり、`sudo apt-get install cloud-init`をホスト上で実行するようになっていました
+大変申し訳ありませんが、スクリプトに誤りがあり、`sudo apt-get install cloud-init`をホスト上で実行するようになっておりました
 大変お手数ですが、それより前のバージョンを利用した方は、`sudo apt purge cloud-init`で削除をお願いします
+以下のフォーラムの用に再起動後にProxmox Clusterが破壊される可能性があります
+https://forum.proxmox.com/threads/after-upgrade-from-5-2-5-my-server-is-now-named-cloudinit.49810/
 
 ## 使い方
 
