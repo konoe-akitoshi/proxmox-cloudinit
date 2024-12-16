@@ -18,8 +18,6 @@ if [ -z "$DISK_POOL" ]; then
   DISK_POOL="local-lvm"
 fi
 
-apt-get install cloud-init
-
 # Check if image exists
 if [ ! -f /root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img ]; then
   echo "Image not found Downloading..."
