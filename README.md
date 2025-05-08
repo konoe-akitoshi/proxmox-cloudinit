@@ -23,6 +23,14 @@ apt-get install libguestfs-tools
 - Cloud-Initの設定
 - SSH鍵の設定
 - ネットワーク設定
+- EFIディスクの設定（セキュアブート対応）
+
+## 設定の詳細
+
+- マシンタイプ: q35（UEFI対応）
+- ディスクフォーマット: qcow2
+- ディスク設定: discard=on（TRIM対応）
+- EFIディスク: 4MB, 事前登録キー対応
 
 ## 使い方
 
