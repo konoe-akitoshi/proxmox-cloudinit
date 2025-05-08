@@ -18,12 +18,24 @@ if [ -z "$DISK_POOL" ]; then
   DISK_POOL="local-lvm"
 fi
 
+# Check if libguestfs-tools is installed
+if ! command -v virt-customize &> /dev/null; then
+  echo "Error: libguestfs-tools is not installed"
+  echo "Please install it first with: apt-get install libguestfs-tools"
+  exit 1
+fi
+
 # Check if image exists
 if [ ! -f /root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img ]; then
   echo "Image not found Downloading..."
   # download the latest Ubuntu Cloud Image
   wget https://cloud-images.ubuntu.com/${UBUNTU_CODE_NAME}/current/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img
 fi
+
+# Install qemu-guest-agent in the image
+echo "Installing qemu-guest-agent in the image..."
+virt-customize -a /root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img --install qemu-guest-agent
+
 # create a new VM with VirtIO SCSI controller
 qm create ${VM_ID} --memory ${MEMORY_SIZE} --net0 virtio,bridge=vmbr0 --scsihw virtio-scsi-pci --cores 2 --sockets 1 --name ubuntu-${UBUNTU_CODE_NAME}-template
 # import the downloaded disk to the DISK_POOL storage, attaching it as a SCSI drive

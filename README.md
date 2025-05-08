@@ -9,6 +9,21 @@ Proxmox上でCloudinitに対応したUbuntuイメージをセットアップす�
 以下のフォーラムの用に再起動後にProxmox Clusterが破壊される可能性があります
 https://forum.proxmox.com/threads/after-upgrade-from-5-2-5-my-server-is-now-named-cloudinit.49810/
 
+## 事前準備
+
+1. libguestfs-toolsのインストール
+```bash
+apt-get install libguestfs-tools
+```
+
+## 機能
+
+- Ubuntu Cloud Imageのダウンロードと設定
+- qemu-guest-agentの自動インストール（Proxmox VE側からIPアドレス等の情報を確認可能）
+- Cloud-Initの設定
+- SSH鍵の設定
+- ネットワーク設定
+
 ## 使い方
 
 1. ProxmoxのNodeにSSHでログイン(VMではない)して、以下のコマンドを実行する
