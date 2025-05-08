@@ -34,7 +34,7 @@ fi
 
 # Install qemu-guest-agent in the image
 echo "Installing qemu-guest-agent in the image..."
-virt-customize -a /root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img --install qemu-guest-agent
+virt-customize -a /root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img --install qemu-guest-agent --selinux-relabel
 
 # create a new VM with VirtIO SCSI controller
 qm create ${VM_ID} --memory ${MEMORY_SIZE} --net0 virtio,bridge=vmbr0 --scsihw virtio-scsi-pci --cores 2 --sockets 1 --name ubuntu-${UBUNTU_CODE_NAME}-template --machine q35
@@ -42,8 +42,8 @@ qm create ${VM_ID} --memory ${MEMORY_SIZE} --net0 virtio,bridge=vmbr0 --scsihw v
 qm set ${VM_ID} --scsi0 ${DISK_POOL}:0,discard=on,format=qcow2,import-from=/root/${UBUNTU_CODE_NAME}-server-cloudimg-amd64.img
 # Add Cloud init CD-ROM
 qm set ${VM_ID} --ide2 ${DISK_POOL}:cloudinit
-# Add disk size
-qm resize ${VM_ID} scsi0 +20G
+# Set disk size to 20G
+qm resize ${VM_ID} scsi0 20G
 # Set boot order
 qm set ${VM_ID} --boot order=scsi0
 # add serial
